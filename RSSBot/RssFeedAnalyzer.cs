@@ -1,90 +1,87 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Xml.Linq;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Net;
-using System;
-using System.IO;
-using Newtonsoft.Json.Linq;
 
 namespace RSSBot
 {
     class RssFeedAnalyzer
     {
-        private JObject RssFeeds;
-        private List<string> Urls;
-        private List<XElement> msgsToSend;
-        private List<DiscordWebhookMessage> returnList;
-        private Dictionary<string, List<string>> LastRss;
+        private XNamespace XNamespace;
 
+        private Dictionary<string, List<string>> UrlLastFeedDictionary;
+        private Dictionary<string, DiscordWebhookMessage> UrlMessageTemplateDictionary;
 
-        public RssFeedAnalyzer(JObject rssFeeds)
+        public RssFeedAnalyzer(Dictionary<string, DiscordWebhookMessage> urlMessageTemplateDictionary)
         {
-            Urls = rssFeeds.Properties().Select(x => x.Name.ToString()).ToList();
-            RssFeeds = rssFeeds;
-            returnList = new List<DiscordWebhookMessage>();
-            msgsToSend = new List<XElement>();
-            LastRss = new Dictionary<string, List<string>>();
-            foreach (var url in Urls)
-                LastRss.Add(url, null);
+            XNamespace = "http://search.yahoo.com/mrss/";
+            UrlMessageTemplateDictionary = urlMessageTemplateDictionary;
+            UrlLastFeedDictionary = new Dictionary<string, List<string>>();
+            
+            foreach (var url in UrlMessageTemplateDictionary.Keys)
+                UrlLastFeedDictionary.Add(url, null);
         }
 
-        public async Task<List<DiscordWebhookMessage>> CheckIfNewFeedIsAvailable()
+        public async Task<List<DiscordWebhookMessage>> GetRssMessagesToSend()
         {
-            returnList.Clear();
+            var msgsToSend = await GetNewRssFeeds();
+            var returnList = new List<DiscordWebhookMessage>();
+            foreach (var msg in msgsToSend)
+            {
+                var setupMsg = UrlMessageTemplateDictionary[msg.Key];
+                setupMsg.embeds.First().url = msg.Value.Element("link").Value;
+                setupMsg.embeds.First().title = msg.Value.Element("title").Value;
+                var media = msg.Value.Element(XNamespace + "content");
+                if (media != null)
+                {
+                    var thumbnail = media.Elements(XNamespace + "thumbnail").FirstOrDefault();
+                    if (thumbnail != null)
+                        setupMsg.embeds.First().thumbnail = new DiscordEmbedThumbnail
+                        {
+                            height = 50,
+                            width = 50,
+                            url = thumbnail.Attribute("url").Value
+                        };
+                }
+                setupMsg.embeds.First().description = WebUtility.HtmlDecode(Regex.Replace(msg.Value.Element("description")
+                    .Value.Replace("\n", string.Empty)
+                    .Replace("\t", string.Empty), "<.*?>", string.Empty));
+                returnList.Add(setupMsg);
+            }
+            return returnList;
+        }
+
+        private async Task<Dictionary<string, XElement>> GetNewRssFeeds()
+        {
+            var msgsToSend = new Dictionary<string, XElement>();
             try
             {
                 using (var rssClient = new HttpClient())
                 {
-                    foreach (var url in Urls)
+                    foreach (var url in UrlMessageTemplateDictionary.Keys)
                     {
-                        XNamespace xNamespace = "http://search.yahoo.com/mrss/";
                         var items = XDocument.Load(await rssClient.GetStreamAsync(url)).Descendants("item").ToList();
-                        if (LastRss[url] != null)
+                        if (UrlLastFeedDictionary[url] != null)
                         {
                             msgsToSend.Clear();
                             foreach (var item in items)
-                                if (!LastRss[url].Contains(item.Element("link").Value))
-                                    msgsToSend.Add(item);
-
-                            foreach (var msg in msgsToSend)
-                            {
-                                var setupMsg = RssFeeds.Property(url).Value.ToObject<DiscordWebhookMessage>();
-                                setupMsg.embeds.First().url = msg.Element("link").Value;
-                                setupMsg.embeds.First().title = msg.Element("title").Value;
-                                var media = msg.Element(xNamespace + "content");
-                                if (media != null)
-                                {
-                                    var thumbnail = media.Elements(xNamespace + "thumbnail").FirstOrDefault();
-                                    if (thumbnail != null)
-                                        setupMsg.embeds.First().thumbnail = new DiscordEmbedThumbnail
-                                        {
-                                            height = 50,
-                                            width = 50,
-                                            url = thumbnail.Attribute("url").Value
-                                        };
-                                }
-                                setupMsg.embeds.First().description = WebUtility.HtmlDecode(Regex.Replace(msg.Element("description").Value.Replace("\n", string.Empty).Replace("\t", string.Empty), "<.*?>", string.Empty));
-                                returnList.Add(setupMsg);
-                            }
+                                if (!UrlLastFeedDictionary[url].Contains(item.Element("link").Value))
+                                    msgsToSend.Add(url, item);
                         }
-                        LastRss[url] = items.Select(x => x.Element("link").Value).ToList();
+                        UrlLastFeedDictionary[url] = items.Select(x => x.Element("link").Value).ToList();
                     }
                     rssClient.Dispose();
                 }
             }
             catch (Exception ex)
             {
-                using (var fileStream = new StreamWriter(File.Open("GetRssLog.Txt", FileMode.Append)))
-                {
-                    fileStream.WriteLine(ex + DateTime.Now.ToString());
-                }
+                Program.WriteToLogFile("GetRssLog.Txt", ex + DateTime.Now.ToString());
             }
-            return returnList;
+            return msgsToSend;
         }
-
-        public
     }
 }
