@@ -1,0 +1,202 @@
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at RSSBot.RssFeedAnalyzer.<CheckIfNewFeedIsAvailable>d__6.MoveNext() in D:\VS_Projects\RSSBot\RSSBot\RssFeedAnalyzer.cs:line 5727.10.2017 17:39:28
+System.Net.Http.HttpRequestException: Response status code does not indicate success: 404 (Not Found).
+   at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at System.Net.Http.HttpClient.<GetContentAsync>d__33`1.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at RSSBot.RssFeedAnalyzer.<CheckIfNewFeedIsAvailable>d__6.MoveNext() in D:\VS_Projects\RSSBot\RSSBot\RssFeedAnalyzer.cs:line 4427.10.2017 17:50:18
+System.Net.Http.HttpRequestException: Response status code does not indicate success: 404 (Not Found).
+   at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at System.Net.Http.HttpClient.<GetContentAsync>d__33`1.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at RSSBot.RssFeedAnalyzer.<CheckIfNewFeedIsAvailable>d__6.MoveNext() in D:\VS_Projects\RSSBot\RSSBot\RssFeedAnalyzer.cs:line 4427.10.2017 17:50:19
+System.Net.Http.HttpRequestException: Response status code does not indicate success: 404 (Not Found).
+   at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at System.Net.Http.HttpClient.<GetContentAsync>d__33`1.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at RSSBot.RssFeedAnalyzer.<CheckIfNewFeedIsAvailable>d__6.MoveNext() in D:\VS_Projects\RSSBot\RSSBot\RssFeedAnalyzer.cs:line 4427.10.2017 17:50:20
+System.Net.Http.HttpRequestException: Response status code does not indicate success: 404 (Not Found).
+   at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at System.Net.Http.HttpClient.<GetContentAsync>d__33`1.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at RSSBot.RssFeedAnalyzer.<CheckIfNewFeedIsAvailable>d__6.MoveNext() in D:\VS_Projects\RSSBot\RSSBot\RssFeedAnalyzer.cs:line 4427.10.2017 17:50:21
+System.Net.Http.HttpRequestException: Response status code does not indicate success: 404 (Not Found).
+   at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at System.Net.Http.HttpClient.<GetContentAsync>d__33`1.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at RSSBot.RssFeedAnalyzer.<CheckIfNewFeedIsAvailable>d__6.MoveNext() in D:\VS_Projects\RSSBot\RSSBot\RssFeedAnalyzer.cs:line 4427.10.2017 17:50:22
+System.Net.Http.HttpRequestException: Response status code does not indicate success: 404 (Not Found).
+   at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at System.Net.Http.HttpClient.<GetContentAsync>d__33`1.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at RSSBot.RssFeedAnalyzer.<CheckIfNewFeedIsAvailable>d__6.MoveNext() in D:\VS_Projects\RSSBot\RSSBot\RssFeedAnalyzer.cs:line 4427.10.2017 17:50:23
+System.Net.Http.HttpRequestException: Response status code does not indicate success: 404 (Not Found).
+   at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at System.Net.Http.HttpClient.<GetContentAsync>d__33`1.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at RSSBot.RssFeedAnalyzer.<CheckIfNewFeedIsAvailable>d__6.MoveNext() in D:\VS_Projects\RSSBot\RSSBot\RssFeedAnalyzer.cs:line 4427.10.2017 17:50:24
+System.Net.Http.HttpRequestException: Response status code does not indicate success: 404 (Not Found).
+   at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at System.Net.Http.HttpClient.<GetContentAsync>d__33`1.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at RSSBot.RssFeedAnalyzer.<CheckIfNewFeedIsAvailable>d__6.MoveNext() in D:\VS_Projects\RSSBot\RSSBot\RssFeedAnalyzer.cs:line 4427.10.2017 17:50:26
+System.Net.Http.HttpRequestException: Response status code does not indicate success: 404 (Not Found).
+   at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at System.Net.Http.HttpClient.<GetContentAsync>d__33`1.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at RSSBot.RssFeedAnalyzer.<CheckIfNewFeedIsAvailable>d__6.MoveNext() in D:\VS_Projects\RSSBot\RSSBot\RssFeedAnalyzer.cs:line 4427.10.2017 17:50:27
+System.Net.Http.HttpRequestException: Response status code does not indicate success: 404 (Not Found).
+   at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at System.Net.Http.HttpClient.<GetContentAsync>d__33`1.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at RSSBot.RssFeedAnalyzer.<CheckIfNewFeedIsAvailable>d__6.MoveNext() in D:\VS_Projects\RSSBot\RSSBot\RssFeedAnalyzer.cs:line 4427.10.2017 17:50:28
+System.Net.Http.HttpRequestException: Response status code does not indicate success: 404 (Not Found).
+   at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at System.Net.Http.HttpClient.<GetContentAsync>d__33`1.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at RSSBot.RssFeedAnalyzer.<CheckIfNewFeedIsAvailable>d__6.MoveNext() in D:\VS_Projects\RSSBot\RSSBot\RssFeedAnalyzer.cs:line 4427.10.2017 17:50:29
+System.Net.Http.HttpRequestException: Response status code does not indicate success: 404 (Not Found).
+   at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at System.Net.Http.HttpClient.<GetContentAsync>d__33`1.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at RSSBot.RssFeedAnalyzer.<CheckIfNewFeedIsAvailable>d__6.MoveNext() in D:\VS_Projects\RSSBot\RSSBot\RssFeedAnalyzer.cs:line 4427.10.2017 17:50:30
+System.Net.Http.HttpRequestException: Response status code does not indicate success: 404 (Not Found).
+   at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at System.Net.Http.HttpClient.<GetContentAsync>d__33`1.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at RSSBot.RssFeedAnalyzer.<CheckIfNewFeedIsAvailable>d__6.MoveNext() in D:\VS_Projects\RSSBot\RSSBot\RssFeedAnalyzer.cs:line 4427.10.2017 17:50:31
+System.Net.Http.HttpRequestException: Response status code does not indicate success: 404 (Not Found).
+   at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at System.Net.Http.HttpClient.<GetContentAsync>d__33`1.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at RSSBot.RssFeedAnalyzer.<CheckIfNewFeedIsAvailable>d__6.MoveNext() in D:\VS_Projects\RSSBot\RSSBot\RssFeedAnalyzer.cs:line 4427.10.2017 17:50:32
+System.Net.Http.HttpRequestException: Response status code does not indicate success: 404 (Not Found).
+   at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at System.Net.Http.HttpClient.<GetContentAsync>d__33`1.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at RSSBot.RssFeedAnalyzer.<CheckIfNewFeedIsAvailable>d__6.MoveNext() in D:\VS_Projects\RSSBot\RSSBot\RssFeedAnalyzer.cs:line 4427.10.2017 17:50:33
+System.Net.Http.HttpRequestException: Response status code does not indicate success: 404 (Not Found).
+   at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at System.Net.Http.HttpClient.<GetContentAsync>d__33`1.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at RSSBot.RssFeedAnalyzer.<CheckIfNewFeedIsAvailable>d__6.MoveNext() in D:\VS_Projects\RSSBot\RSSBot\RssFeedAnalyzer.cs:line 4427.10.2017 17:50:34
+System.Net.Http.HttpRequestException: Response status code does not indicate success: 404 (Not Found).
+   at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at System.Net.Http.HttpClient.<GetContentAsync>d__33`1.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at RSSBot.RssFeedAnalyzer.<CheckIfNewFeedIsAvailable>d__6.MoveNext() in D:\VS_Projects\RSSBot\RSSBot\RssFeedAnalyzer.cs:line 4427.10.2017 17:50:36
+System.Net.Http.HttpRequestException: Response status code does not indicate success: 404 (Not Found).
+   at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at System.Net.Http.HttpClient.<GetContentAsync>d__33`1.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at RSSBot.RssFeedAnalyzer.<CheckIfNewFeedIsAvailable>d__6.MoveNext() in D:\VS_Projects\RSSBot\RSSBot\RssFeedAnalyzer.cs:line 4427.10.2017 17:50:37
+System.Net.Http.HttpRequestException: Response status code does not indicate success: 404 (Not Found).
+   at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at System.Net.Http.HttpClient.<GetContentAsync>d__33`1.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at RSSBot.RssFeedAnalyzer.<CheckIfNewFeedIsAvailable>d__6.MoveNext() in D:\VS_Projects\RSSBot\RSSBot\RssFeedAnalyzer.cs:line 4427.10.2017 17:50:38
+System.Net.Http.HttpRequestException: Response status code does not indicate success: 404 (Not Found).
+   at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at System.Net.Http.HttpClient.<GetContentAsync>d__33`1.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at RSSBot.RssFeedAnalyzer.<CheckIfNewFeedIsAvailable>d__6.MoveNext() in D:\VS_Projects\RSSBot\RSSBot\RssFeedAnalyzer.cs:line 4427.10.2017 17:50:39
+System.Net.Http.HttpRequestException: Response status code does not indicate success: 404 (Not Found).
+   at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at System.Net.Http.HttpClient.<GetContentAsync>d__33`1.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at RSSBot.RssFeedAnalyzer.<CheckIfNewFeedIsAvailable>d__6.MoveNext() in D:\VS_Projects\RSSBot\RSSBot\RssFeedAnalyzer.cs:line 4427.10.2017 17:50:40
+System.Net.Http.HttpRequestException: Response status code does not indicate success: 404 (Not Found).
+   at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at System.Net.Http.HttpClient.<GetContentAsync>d__33`1.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at RSSBot.RssFeedAnalyzer.<CheckIfNewFeedIsAvailable>d__6.MoveNext() in D:\VS_Projects\RSSBot\RSSBot\RssFeedAnalyzer.cs:line 4427.10.2017 17:50:41
+System.Net.Http.HttpRequestException: Response status code does not indicate success: 404 (Not Found).
+   at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at System.Net.Http.HttpClient.<GetContentAsync>d__33`1.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at RSSBot.RssFeedAnalyzer.<CheckIfNewFeedIsAvailable>d__6.MoveNext() in D:\VS_Projects\RSSBot\RSSBot\RssFeedAnalyzer.cs:line 4427.10.2017 17:50:42
+System.Net.Http.HttpRequestException: Response status code does not indicate success: 404 (Not Found).
+   at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at System.Net.Http.HttpClient.<GetContentAsync>d__33`1.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at RSSBot.RssFeedAnalyzer.<CheckIfNewFeedIsAvailable>d__6.MoveNext() in D:\VS_Projects\RSSBot\RSSBot\RssFeedAnalyzer.cs:line 4427.10.2017 17:50:43
+System.Net.Http.HttpRequestException: Response status code does not indicate success: 404 (Not Found).
+   at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at System.Net.Http.HttpClient.<GetContentAsync>d__33`1.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at RSSBot.RssFeedAnalyzer.<CheckIfNewFeedIsAvailable>d__6.MoveNext() in D:\VS_Projects\RSSBot\RSSBot\RssFeedAnalyzer.cs:line 4427.10.2017 17:50:44
