@@ -62,7 +62,6 @@ namespace RSSBot
                         var items = XDocument.Load(await rssClient.GetStreamAsync(entity.Url)).Descendants("item").ToList();
                         if (entity.LastFeeds.Count != 0)
                         {
-                            msgsToSend.Clear();
                             foreach (var item in items)
                                 if (!entity.LastFeeds.Contains(item.Element("link").Value))
                                     msgsToSend.Add(new KeyValuePair<string, XElement>(entity.Url, item));
@@ -74,7 +73,7 @@ namespace RSSBot
             }
             catch (Exception ex)
             {
-                Program.WriteToLogFile("GetRssLog.Txt", ex + DateTime.Now.ToString());
+                await Program.WriteToLogFile("GetRssLog.Txt", ex + DateTime.Now.ToString());
             }
             return msgsToSend;
         }

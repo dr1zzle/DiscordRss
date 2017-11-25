@@ -20,7 +20,7 @@ namespace RSSBot
                     foreach (var msg in messages)
                     {
                         var responseMessage = await client.PostAsync(webhook, new StringContent(msg.ToString(), Encoding.UTF8, "application/json"));
-                        Program.WriteToLogFile("SendMsgLog.Txt", "Message Send. Everything OK!");
+                        await Program.WriteToLogFile("SendMsgLog.Txt", "Message Send. Everything OK!");
                         Thread.Sleep(2000);
                     }
                     client.Dispose();
@@ -28,7 +28,7 @@ namespace RSSBot
             }
             catch (Exception ex)
             {
-                Program.WriteToLogFile("SendMsgLog.Txt", ex.ToString());
+                await Program.WriteToLogFile("SendMsgLog.Txt", ex.ToString());
             }
         }
     }
