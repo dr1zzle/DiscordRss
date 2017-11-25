@@ -19,11 +19,11 @@ namespace RSSBot
 
         public static void Main(string[] args)
         {
-            var urlTemplateDictionary = GetUrlTemplateDictionary();
+            var rssWebhookEntities = GetRssWebhookEntities();
             Webhooks = GetWebhooks();
 
             Client = new Client();
-            RssAnalyzer = new RssFeedAnalyzer(urlTemplateDictionary);
+            RssAnalyzer = new RssFeedAnalyzer(rssWebhookEntities);
 
             Task.Run(() => Run());
             Console.ReadKey();
@@ -51,12 +51,15 @@ namespace RSSBot
             }
         }
 
-        private static Dictionary<string, DiscordWebhookMessage> GetUrlTemplateDictionary()
+        private static List<RssWebhookEntity> GetRssWebhookEntities()
         {
-            var returnValue = new Dictionary<string, DiscordWebhookMessage>();
+            var returnValue = new List<RssWebhookEntity>();
             var rawJObject = JObject.Parse(File.ReadAllText("urls.txt"));
             foreach (var property in rawJObject.Properties())
-                returnValue.Add(property.Name, property.Value.ToObject<DiscordWebhookMessage>());
+                returnValue.Add(new RssWebhookEntity {
+                    Url = property.Name,
+                    WebhookMessageTemplate = property.Value.ToObject<DiscordWebhookMessage>()
+                });
             return returnValue;
         }
 
