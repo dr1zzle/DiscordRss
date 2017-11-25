@@ -50,9 +50,9 @@ namespace RSSBot
             return returnList;
         }
 
-        private async Task<Dictionary<string, XElement>> GetNewRssFeeds()
+        private async Task<List<KeyValuePair<string, XElement>>> GetNewRssFeeds()
         {
-            var msgsToSend = new Dictionary<string, XElement>();
+            var msgsToSend = new List<KeyValuePair<string, XElement>>();
             try
             {
                 using (var rssClient = new HttpClient())
@@ -65,7 +65,7 @@ namespace RSSBot
                             msgsToSend.Clear();
                             foreach (var item in items)
                                 if (!entity.LastFeeds.Contains(item.Element("link").Value))
-                                    msgsToSend.Add(entity.Url, item);
+                                    msgsToSend.Add(new KeyValuePair<string, XElement>(entity.Url, item));
                         }
                         entity.LastFeeds = items.Select(x => x.Element("link").Value).ToList();
                     }
