@@ -1,43 +1,15 @@
 ﻿{
-	"http://www.gamestar.de/news/rss/news.rss": {
-		        "username" : "Gamestar News!",
-                "avatar_url" : "http://img00.deviantart.net/4b7c/i/2012/119/5/b/gamestar_cutie_mark_by_pappkarton-d4y0ghn.png",
+	"put the rss feed url here": {
+		        "username" : "costum name",
+                "avatar_url" : "costum avatar url",
                 "embeds" : [
                 {
-                        "color" : 25855,
+                        "color" : costum int color value,
                         "thumbnail" : 
                         {
-                            "url" : "http://www.gamestar.de/xenforo/styles/gamestar/xenforo/logo.og.png",
-                            "width" : 50,
-                            "height" : 50
-                        }
-                }]
-	},
-	"http://spielekauf.de/rss": {
-                "username" : "Spielekauf News!",
-                "avatar_url" : "http://spielekauf.de/content/themes/KSTheme_v2/assets/img/logo-1.png",
-                "embeds" : [
-                {
-                        "color" : 789516,
-                        "thumbnail" :
-                        {
-                            "url" : "https://scontent-frx5-1.xx.fbcdn.net/v/t1.0-1/p200x200/19642467_1439087766147294_8122663519221538858_n.jpg?oh=d7c6bbed704d308756f1abb0cb9f9f22&oe=5A6587B0",
-                            "width" : 50,
-                            "height" : 50
-                        }
-                }]
-	},
-	"http://www.gamepro.de/rss/gpnews.rss": {
-                "username" : "Gamepro News!",
-                "avatar_url" : "https://pbs.twimg.com/profile_images/775306654460116993/yShwvDXr_400x400.jpg",
-                "embeds" : [
-                {
-                        "color" : 3117736,
-                        "thumbnail" : 
-                        {
-                            "url" : "https://pbs.twimg.com/profile_images/775306654460116993/yShwvDXr_400x400.jpg",
-                            "width" : 50,
-                            "height" : 50
+                            "url" : "costum thumbnail url if rss feed comes without media",
+                            "width" : costum width as int,
+                            "height" : costum width as int
                         }
                 }]
 	}

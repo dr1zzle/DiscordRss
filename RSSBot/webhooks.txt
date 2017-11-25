@@ -1,3 +1,3 @@
 <webhooks>
-<webhook>https://discordapp.com/api/webhooks/335839893223636993/011kk9WitjWZj1ofVhDsfM6npDBu68RGTvE0LsVxh88pXpH098lffHetwaPZGCJ6ZHSC</webhook>
+<webhook>YOUR WEBHOOK GOES HERE</webhook>
 </webhooks>
