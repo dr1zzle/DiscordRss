@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace RSSBot
 {
-    class Client
+    internal class Client
     {
         public async Task SendMessageToDiscord(string webhook, IList<DiscordWebhookMessage> messages)
         {

@@ -9,7 +9,7 @@ using System.Net;
 
 namespace RSSBot
 {
-    class RssFeedAnalyzer
+    internal class RssFeedAnalyzer
     {
         private XNamespace XNamespace;
 
