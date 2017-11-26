@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-
-namespace RSSBot
+﻿namespace RSSBot
 {
     internal class DiscordMessageEmbed : DiscordWebhookObject
     {
