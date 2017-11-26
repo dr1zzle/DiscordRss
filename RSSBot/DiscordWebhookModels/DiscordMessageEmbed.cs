@@ -8,5 +8,12 @@
         public string url { get; set; }
         public DiscordEmbedThumbnail thumbnail { get; set; }
         public int color { get; set; }
+
+        public DiscordMessageEmbed DeepCopy() 
+        {
+            var returnValue = base.Copy<DiscordMessageEmbed>();
+            returnValue.thumbnail = thumbnail.Copy<DiscordEmbedThumbnail>();
+            return returnValue;
+        }
     }
 }
