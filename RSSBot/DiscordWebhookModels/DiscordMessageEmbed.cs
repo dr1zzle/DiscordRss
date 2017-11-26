@@ -2,7 +2,7 @@
 
 namespace RSSBot
 {
-    class DiscordMessageEmbed
+    class DiscordMessageEmbed : DiscordWebhookObject
     {
         public string title { get; set; }
         public string type { get; set; }
@@ -10,7 +10,5 @@ namespace RSSBot
         public string url { get; set; }
         public DiscordEmbedThumbnail thumbnail { get; set; }
         public int color { get; set; }
-
-        public override string ToString() => JsonConvert.SerializeObject(this);
     }
 }

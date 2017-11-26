@@ -27,7 +27,7 @@ namespace RSSBot
             var returnList = new List<DiscordWebhookMessage>();
             foreach (var msg in msgsToSend)
             {
-                var setupMsg = RssWebhookEntities.First(x => x.Url == msg.Key).WebhookMessageTemplate;
+                var setupMsg = RssWebhookEntities.First(x => x.Url == msg.Key).WebhookMessageTemplate.Copy<DiscordWebhookMessage>();
                 setupMsg.embeds.First().url = msg.Value.Element("link").Value;
                 setupMsg.embeds.First().title = msg.Value.Element("title").Value;
                 var media = msg.Value.Element(XNamespace + "content");
