@@ -2,7 +2,7 @@
 
 namespace RSSBot
 {
-    class DiscordEmbedThumbnail : DiscordWebhookObject
+    internal class DiscordEmbedThumbnail : DiscordWebhookObject
     {
         public string url { get; set; }
         public int height { get; set; }

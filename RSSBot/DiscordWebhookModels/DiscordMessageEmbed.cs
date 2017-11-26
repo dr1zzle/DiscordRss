@@ -2,7 +2,7 @@
 
 namespace RSSBot
 {
-    class DiscordMessageEmbed : DiscordWebhookObject
+    internal class DiscordMessageEmbed : DiscordWebhookObject
     {
         public string title { get; set; }
         public string type { get; set; }
