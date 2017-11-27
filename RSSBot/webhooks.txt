@@ -1,3 +1,0 @@
-<webhooks>
-<webhook>YOUR WEBHOOK GOES HERE</webhook>
-</webhooks>
