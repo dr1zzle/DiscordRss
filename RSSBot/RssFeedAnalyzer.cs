@@ -12,7 +12,6 @@ namespace RSSBot
     internal class RssFeedAnalyzer
     {
         private XNamespace XNamespace;
-
         private List<RssWebhookEntity> RssWebhookEntities;
 
         public RssFeedAnalyzer(List<RssWebhookEntity> rssWebhookentities)
@@ -21,10 +20,10 @@ namespace RSSBot
             RssWebhookEntities = rssWebhookentities;
         }
 
-        public async Task<List<DiscordWebhookMessage>> GetRssMessagesToSend()
+        public async Task<List<KeyValuePair<string, DiscordWebhookMessage>>> GetRssMessagesToSend()
         {
             var msgsToSend = await GetNewRssFeeds();
-            var returnList = new List<DiscordWebhookMessage>();
+            var returnList = new List<KeyValuePair<string, DiscordWebhookMessage>>();
             foreach (var msg in msgsToSend)
             {
                 var setupMsg = RssWebhookEntities.First(x => x.Url == msg.Key).WebhookMessageTemplate.DeepCopy();
@@ -45,7 +44,7 @@ namespace RSSBot
                 setupMsg.embeds.First().description = WebUtility.HtmlDecode(Regex.Replace(msg.Value.Element("description")
                     .Value.Replace("\n", string.Empty)
                     .Replace("\t", string.Empty), "<.*?>", string.Empty));
-                returnList.Add(setupMsg);
+                returnList.Add(new KeyValuePair<string, DiscordWebhookMessage>(RssWebhookEntities.First(x => x.Url == msg.Key).Webhook, setupMsg));
             }
             return returnList;
         }

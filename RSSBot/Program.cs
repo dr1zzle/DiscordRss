@@ -13,14 +13,11 @@ namespace RSSBot
     public class Program
     {
         private static Client Client;
-        private static List<string> Webhooks;
         private static RssFeedAnalyzer RssAnalyzer;
-        private static List<DiscordWebhookMessage> Messages;
 
         public static void Main(string[] args)
         {
             var rssWebhookEntities = GetRssWebhookEntities();
-            Webhooks = GetWebhooks();
 
             Client = new Client();
             RssAnalyzer = new RssFeedAnalyzer(rssWebhookEntities);
@@ -42,12 +39,11 @@ namespace RSSBot
             Console.WriteLine("Application started ...");
             while (true)
             {
-                Messages = await RssAnalyzer.GetRssMessagesToSend();
-                Messages.Reverse();
-                if (Messages.Count != 0)
-                    foreach(var webhook in Webhooks)
-                        await Client.SendMessageToDiscord(webhook, Messages);
-                Thread.Sleep(300000);
+                var messages = await RssAnalyzer.GetRssMessagesToSend();
+                messages.Reverse();
+                if (messages.Count != 0)
+                    await Client.SendMessageToDiscord(messages);
+                Thread.Sleep(120000);
             }
         }
 
@@ -58,14 +54,10 @@ namespace RSSBot
             foreach (var property in rawJObject.Properties())
                 returnValue.Add(new RssWebhookEntity {
                     Url = property.Name,
-                    WebhookMessageTemplate = property.Value.ToObject<DiscordWebhookMessage>()
+                    Webhook = property.Value["webhook"].ToString(),
+                    WebhookMessageTemplate = property.Value["template"].ToObject<DiscordWebhookMessage>()
                 });
             return returnValue;
-        }
-
-        private static List<string> GetWebhooks()
-        {
-            return XDocument.Load("webhooks.txt").Descendants("webhook").Select(x => x.Value).ToList();
         }
     }
 }

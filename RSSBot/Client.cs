@@ -11,7 +11,7 @@ namespace RSSBot
 {
     internal class Client
     {
-        public async Task SendMessageToDiscord(string webhook, IList<DiscordWebhookMessage> messages)
+        public async Task SendMessageToDiscord(IList<KeyValuePair<string, DiscordWebhookMessage>> messages)
         {
             try
             {
@@ -19,7 +19,7 @@ namespace RSSBot
                 {
                     foreach (var msg in messages)
                     {
-                        var responseMessage = await client.PostAsync(webhook, new StringContent(msg.ToString(), Encoding.UTF8, "application/json"));
+                        var responseMessage = await client.PostAsync(msg.Key, new StringContent(msg.Value.ToString(), Encoding.UTF8, "application/json"));
                         await Program.WriteToLogFile("SendMsgLog.Txt", "Message Send. Everything OK!");
                         Thread.Sleep(2000);
                     }
