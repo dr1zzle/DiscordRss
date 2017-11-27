@@ -63,9 +63,17 @@ namespace RSSBot
                         {
                             foreach (var item in items)
                                 if (!entity.LastFeeds.Contains(item.Element("link").Value))
+                                {
                                     msgsToSend.Add(new KeyValuePair<string, XElement>(entity.Url, item));
+                                    entity.LastFeeds.Add(item.Element("link").Value);
+                                    if (entity.LastFeeds.Count > 55)
+                                        entity.LastFeeds.Remove(entity.LastFeeds.First());
+                                }
                         }
-                        entity.LastFeeds = items.Select(x => x.Element("link").Value).ToList();
+                        else
+                        {
+                            entity.LastFeeds = items.Select(x => x.Element("link").Value).ToList();
+                        }
                     }
                     rssClient.Dispose();
                 }
