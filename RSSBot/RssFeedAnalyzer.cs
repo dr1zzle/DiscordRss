@@ -58,8 +58,14 @@ namespace RSSBot
                 {
                     foreach (var entity in RssWebhookEntities)
                     {
-                        var stream = await rssClient.GetStreamAsync(entity.Url);
-                        var items = XDocument.Load(stream).Descendants("item").ToList();
+                        List<XElement> items;
+                        using (var stream = await rssClient.GetStreamAsync(entity.Url))
+                        {
+                            items = XDocument.Load(stream).Descendants("item").ToList();
+                            await stream.FlushAsync();
+                            stream.Dispose();
+                        }
+
                         if (entity.LastFeeds.Count != 0)
                         {
                             foreach (var item in items)
