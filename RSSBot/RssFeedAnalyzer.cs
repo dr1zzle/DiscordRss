@@ -58,22 +58,24 @@ namespace RSSBot
                 {
                     foreach (var entity in RssWebhookEntities)
                     {
-                        var items = XDocument.Load(await rssClient.GetStreamAsync(entity.Url)).Descendants("item").ToList();
+                        var stream = await rssClient.GetStreamAsync(entity.Url);
+                        var items = XDocument.Load(stream).Descendants("item").ToList();
                         if (entity.LastFeeds.Count != 0)
                         {
                             foreach (var item in items)
-                                if (!entity.LastFeeds.Contains(item.Element("link").Value))
+                            {
+                                var linkValue = item.Element("link").Value;
+                                if (!entity.LastFeeds.Contains(linkValue) &&
+                                    !entity.SentFeeds.Contains(linkValue))
                                 {
                                     msgsToSend.Add(new KeyValuePair<string, XElement>(entity.Url, item));
-                                    entity.LastFeeds.Add(item.Element("link").Value);
-                                    if (entity.LastFeeds.Count > 55)
-                                        entity.LastFeeds.Remove(entity.LastFeeds.First());
+                                    entity.SentFeeds.Add(linkValue);
+                                    if (entity.SentFeeds.Count > 50)
+                                        entity.SentFeeds.Remove(entity.LastFeeds.First());
                                 }
+                            }
                         }
-                        else
-                        {
-                            entity.LastFeeds = items.Select(x => x.Element("link").Value).ToList();
-                        }
+                        entity.LastFeeds = items.Select(x => x.Element("link").Value).ToList();
                     }
                     rssClient.Dispose();
                 }
