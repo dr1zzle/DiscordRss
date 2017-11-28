@@ -71,7 +71,7 @@ namespace RSSBot
                                     msgsToSend.Add(new KeyValuePair<string, XElement>(entity.Url, item));
                                     entity.SentFeeds.Add(linkValue);
                                     if (entity.SentFeeds.Count > 50)
-                                        entity.SentFeeds.Remove(entity.LastFeeds.First());
+                                        entity.SentFeeds.Remove(entity.SentFeeds.First());
                                 }
                             }
                         }
