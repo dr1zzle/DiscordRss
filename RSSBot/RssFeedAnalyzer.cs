@@ -12,15 +12,15 @@ namespace RSSBot
     internal class RssFeedAnalyzer
     {
         private XNamespace XNamespace;
-        private List<RssWebhookEntity> RssWebhookEntities;
+        private IList<RssWebhookEntity> RssWebhookEntities;
 
-        public RssFeedAnalyzer(List<RssWebhookEntity> rssWebhookentities)
+        public RssFeedAnalyzer(IList<RssWebhookEntity> rssWebhookentities)
         {
             XNamespace = "http://search.yahoo.com/mrss/";
             RssWebhookEntities = rssWebhookentities;
         }
 
-        public async Task<List<KeyValuePair<string, DiscordWebhookMessage>>> GetRssMessagesToSend()
+        public async Task<IList<KeyValuePair<string, DiscordWebhookMessage>>> GetRssMessagesToSend()
         {
             var msgsToSend = await GetNewRssFeeds();
             var returnList = new List<KeyValuePair<string, DiscordWebhookMessage>>();
@@ -49,7 +49,7 @@ namespace RSSBot
             return returnList;
         }
 
-        private async Task<List<KeyValuePair<string, XElement>>> GetNewRssFeeds()
+        private async Task<IList<KeyValuePair<string, XElement>>> GetNewRssFeeds()
         {
             var msgsToSend = new List<KeyValuePair<string, XElement>>();
             try
