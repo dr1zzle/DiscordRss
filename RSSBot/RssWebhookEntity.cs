@@ -12,8 +12,8 @@ namespace RSSBot
 
         public string Url { get; set; }
         public string Webhook { get; set; }
-        public List<string> LastFeeds { get; set; }
-        public List<string> SentFeeds { get; set; }
+        public IList<string> LastFeeds { get; set; }
+        public IList<string> SentFeeds { get; set; }
         public DiscordWebhookMessage WebhookMessageTemplate { get; set; }
     }
 }

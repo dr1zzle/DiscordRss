@@ -1,11 +1,11 @@
 ﻿using System;
+using System.Net;
 using System.Linq;
 using System.Xml.Linq;
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using System.Net.Http;
 using System.Threading.Tasks;
-using System.Net;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace RSSBot
 {

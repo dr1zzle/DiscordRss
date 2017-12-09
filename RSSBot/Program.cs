@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Xml.Linq;
+using System.Collections.Generic;
 
 using Newtonsoft.Json.Linq;
 
@@ -47,7 +46,7 @@ namespace RSSBot
             }
         }
 
-        private static List<RssWebhookEntity> GetRssWebhookEntities()
+        private static IList<RssWebhookEntity> GetRssWebhookEntities()
         {
             var returnValue = new List<RssWebhookEntity>();
             var rawJObject = JObject.Parse(File.ReadAllText("urls.txt"));
