@@ -17,10 +17,18 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Configuration\config.json" />
-    <Content Include="Configuration\feeds.json" />
-    <Content Include="Logging\GetRssLog.Txt" />
-    <Content Include="Logging\SendMsgLog.Txt" />
+    <Content Include="Configuration\config.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Configuration\feeds.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Logging\GetRssLog.Txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Logging\SendMsgLog.Txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
