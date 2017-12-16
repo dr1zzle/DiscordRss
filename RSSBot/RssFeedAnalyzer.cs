@@ -52,45 +52,49 @@ namespace RSSBot
         private async Task<IList<KeyValuePair<string, XElement>>> GetNewRssFeeds()
         {
             var msgsToSend = new List<KeyValuePair<string, XElement>>();
-            try
+            using (var rssClient = new HttpClient())
             {
-                using (var rssClient = new HttpClient())
+                foreach (var entity in RssWebhookEntities)
                 {
-                    foreach (var entity in RssWebhookEntities)
+                    var items = await TryGetFeeds(entity.Url, rssClient);
+                    if (entity.LastFeeds.Count != 0)
                     {
-                        List<XElement> items;
-                        using (var stream = await rssClient.GetStreamAsync(entity.Url))
+                        foreach (var item in items)
                         {
-                            items = XDocument.Load(stream).Descendants("item").ToList();
-                            await stream.FlushAsync();
-                            stream.Dispose();
-                        }
-
-                        if (entity.LastFeeds.Count != 0)
-                        {
-                            foreach (var item in items)
+                            var linkValue = item.Element("link").Value;
+                            if (!entity.LastFeeds.Contains(linkValue) &&
+                                !entity.SentFeeds.Contains(linkValue))
                             {
-                                var linkValue = item.Element("link").Value;
-                                if (!entity.LastFeeds.Contains(linkValue) &&
-                                    !entity.SentFeeds.Contains(linkValue))
-                                {
-                                    msgsToSend.Add(new KeyValuePair<string, XElement>(entity.Url, item));
-                                    entity.SentFeeds.Add(linkValue);
-                                    if (entity.SentFeeds.Count > 50)
-                                        entity.SentFeeds.Remove(entity.SentFeeds.First());
-                                }
+                                msgsToSend.Add(new KeyValuePair<string, XElement>(entity.Url, item));
+                                entity.SentFeeds.Add(linkValue);
+                                if (entity.SentFeeds.Count > 10)
+                                    entity.SentFeeds.Remove(entity.SentFeeds.First());
                             }
                         }
-                        entity.LastFeeds = items.Select(x => x.Element("link").Value).ToList();
                     }
-                    rssClient.Dispose();
+                    entity.LastFeeds = items.Select(x => x.Element("link").Value).ToList();
+                }
+                rssClient.Dispose();
+            }
+            return msgsToSend;
+        }
+
+        private async Task<IList<XElement>> TryGetFeeds(string url, HttpClient httpClient)
+        {
+            var returnValue = new List<XElement>();
+            try
+            {
+                using (var stream = await httpClient.GetStreamAsync(url))
+                {
+                    returnValue = XDocument.Load(stream).Descendants("item").ToList();
+                    stream.Dispose();
                 }
             }
             catch (Exception ex)
             {
-                await Program.WriteToLogFile("GetRssLog.Txt", ex + DateTime.Now.ToString());
+                await Program.WriteToLogFile("GetRssLog.Txt", ex + " " + DateTime.Now.ToString() + " " + url);
             }
-            return msgsToSend;
+            return returnValue;
         }
     }
 }
