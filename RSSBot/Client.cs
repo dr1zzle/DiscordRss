@@ -28,7 +28,7 @@ namespace RSSBot
             }
             catch (Exception ex)
             {
-                await Program.WriteToLogFile("SendMsgLog.Txt", ex.ToString());
+                await Program.WriteToLogFile("Logging/SendMsgLog.Txt", ex.ToString());
             }
         }
 
@@ -49,7 +49,7 @@ namespace RSSBot
             }
             catch (Exception ex)
             {
-                await Program.WriteToLogFile("GetRssLog.Txt", ex + " " + DateTime.Now.ToString() + " " + url);
+                await Program.WriteToLogFile("Logging/GetRssLog.Txt", ex + " " + DateTime.Now.ToString() + " " + url);
             }
             returnValue.Reverse();
             return returnValue;

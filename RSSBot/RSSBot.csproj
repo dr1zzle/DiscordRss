@@ -10,6 +10,20 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
 
   <ItemGroup>
+    <None Remove="Configuration\config.json" />
+    <None Remove="Configuration\feeds.json" />
+    <None Remove="Logging\GetRssLog.Txt" />
+    <None Remove="Logging\SendMsgLog.Txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Configuration\config.json" />
+    <Content Include="Configuration\feeds.json" />
+    <Content Include="Logging\GetRssLog.Txt" />
+    <Content Include="Logging\SendMsgLog.Txt" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
   </ItemGroup>
 
