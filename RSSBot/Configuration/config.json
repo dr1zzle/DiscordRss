@@ -1,0 +1,4 @@
+﻿{
+  //Time in minutes between the request cycle for new feeds.
+  "cycleTime": 5
+}

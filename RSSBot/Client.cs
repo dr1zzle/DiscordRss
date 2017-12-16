@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Linq;
 using System.Text;
+using System.Xml.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -9,7 +11,7 @@ namespace RSSBot
 {
     internal class Client
     {
-        public async Task SendMessageToDiscord(IList<KeyValuePair<string, DiscordWebhookMessage>> messages)
+        public async Task TrySendMessageToDiscord(IList<KeyValuePair<string, DiscordWebhookMessage>> messages)
         {
             try
             {
@@ -28,6 +30,29 @@ namespace RSSBot
             {
                 await Program.WriteToLogFile("SendMsgLog.Txt", ex.ToString());
             }
+        }
+
+        public async Task<IList<XElement>> TryGetFeeds(string url)
+        {
+            var returnValue = new List<XElement>();
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    using (var stream = await client.GetStreamAsync(url))
+                    {
+                        returnValue = XDocument.Load(stream).Descendants("item").ToList();
+                        stream.Dispose();
+                    }
+                    client.Dispose();
+                }
+            }
+            catch (Exception ex)
+            {
+                await Program.WriteToLogFile("GetRssLog.Txt", ex + " " + DateTime.Now.ToString() + " " + url);
+            }
+            returnValue.Reverse();
+            return returnValue;
         }
     }
 }

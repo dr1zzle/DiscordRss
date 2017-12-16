@@ -1,18 +1,26 @@
-﻿namespace RSSBot
+﻿using Newtonsoft.Json;
+
+namespace RSSBot
 {
     internal class DiscordMessageEmbed : DiscordWebhookObject
     {
-        public string title { get; set; }
-        public string type { get; set; }
-        public string description { get; set; }
-        public string url { get; set; }
-        public DiscordEmbedThumbnail thumbnail { get; set; }
-        public int color { get; set; }
+        [JsonProperty("title")]
+        public string Title { get; set; }
+        [JsonProperty("type")]
+        public string Type { get; set; }
+        [JsonProperty("description")]
+        public string Description { get; set; }
+        [JsonProperty("url")]
+        public string Url { get; set; }
+        [JsonProperty("thumbnail")]
+        public DiscordEmbedThumbnail Thumbnail { get; set; }
+        [JsonProperty("color")]
+        public int Color { get; set; }
 
         public DiscordMessageEmbed DeepCopy() 
         {
             var returnValue = base.Copy<DiscordMessageEmbed>();
-            returnValue.thumbnail = thumbnail.Copy<DiscordEmbedThumbnail>();
+            returnValue.Thumbnail = Thumbnail.Copy<DiscordEmbedThumbnail>();
             return returnValue;
         }
     }

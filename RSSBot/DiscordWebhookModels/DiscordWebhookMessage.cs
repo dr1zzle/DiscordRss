@@ -1,21 +1,27 @@
 ﻿using System.Collections.Generic;
 
+using Newtonsoft.Json;
+
 namespace RSSBot
 {
-    internal class DiscordWebhookMessage : DiscordWebhookObject 
+    internal class DiscordWebhookMessage : DiscordWebhookObject
     {
-        public string content { get; set; }
-        public string username { get; set; }
-        public string avatar_url { get; set; }
-        public IList<DiscordMessageEmbed> embeds { get; set; }
+        [JsonProperty("content")]
+        public string Content { get; set; }
+        [JsonProperty("username")]
+        public string Username { get; set; }
+        [JsonProperty("avatar_url")]
+        public string AvatarUrl { get; set; }
+        [JsonProperty("embeds")]
+        public IList<DiscordMessageEmbed> Embeds { get; set; }
 
         public DiscordWebhookMessage DeepCopy()
         {
             var returnValue = base.Copy<DiscordWebhookMessage>();
             var embedList = new List<DiscordMessageEmbed>();
-            foreach (var embed in embeds)
+            foreach (var embed in Embeds)
                 embedList.Add(embed.DeepCopy());
-            returnValue.embeds = embedList.ToArray();
+            returnValue.Embeds = embedList.ToArray();
             return returnValue;
         }
     }

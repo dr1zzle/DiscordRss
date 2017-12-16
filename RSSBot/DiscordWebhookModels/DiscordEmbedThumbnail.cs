@@ -1,9 +1,14 @@
-﻿namespace RSSBot
+﻿using Newtonsoft.Json;
+
+namespace RSSBot
 {
     internal class DiscordEmbedThumbnail : DiscordWebhookObject
     {
-        public string url { get; set; }
-        public int height { get; set; }
+        [JsonProperty("url")]
+        public string Url { get; set; }
+        [JsonProperty("height")]
+        public int Height { get; set; }
+        [JsonProperty("width")]
         public int width { get; set; }
     }
 }

@@ -1,23 +1,28 @@
-﻿using System;
-using System.Net;
+﻿using System.Net;
 using System.Linq;
 using System.Xml.Linq;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+
+using RSSBot.Configuration.ConfigModels;
+
+using RSSBot.DataModel;
+using System;
 
 namespace RSSBot
 {
     internal class RssFeedAnalyzer
     {
+        private Client HttpClient;
         private XNamespace XNamespace;
         private IList<RssWebhookEntity> RssWebhookEntities;
 
-        public RssFeedAnalyzer(IList<RssWebhookEntity> rssWebhookentities)
+        public RssFeedAnalyzer(Feeds feeds, Client httpClient)
         {
+            HttpClient = httpClient;
+            RssWebhookEntities = feeds.FeedList;
             XNamespace = "http://search.yahoo.com/mrss/";
-            RssWebhookEntities = rssWebhookentities;
         }
 
         public async Task<IList<KeyValuePair<string, DiscordWebhookMessage>>> GetRssMessagesToSend()
@@ -27,21 +32,21 @@ namespace RSSBot
             foreach (var msg in msgsToSend)
             {
                 var setupMsg = RssWebhookEntities.First(x => x.Url == msg.Key).WebhookMessageTemplate.DeepCopy();
-                setupMsg.embeds.First().url = msg.Value.Element("link").Value;
-                setupMsg.embeds.First().title = msg.Value.Element("title").Value;
+                setupMsg.Embeds.First().Url = msg.Value.Element("link").Value;
+                setupMsg.Embeds.First().Title = msg.Value.Element("title").Value;
                 var media = msg.Value.Element(XNamespace + "content");
                 if (media != null)
                 {
                     var thumbnail = media.Elements(XNamespace + "thumbnail").FirstOrDefault();
                     if (thumbnail != null)
-                        setupMsg.embeds.First().thumbnail = new DiscordEmbedThumbnail
+                        setupMsg.Embeds.First().Thumbnail = new DiscordEmbedThumbnail
                         {
-                            height = 50,
+                            Height = 50,
                             width = 50,
-                            url = thumbnail.Attribute("url").Value
+                            Url = thumbnail.Attribute("url").Value
                         };
                 }
-                setupMsg.embeds.First().description = WebUtility.HtmlDecode(Regex.Replace(msg.Value.Element("description")
+                setupMsg.Embeds.First().Description = WebUtility.HtmlDecode(Regex.Replace(msg.Value.Element("description")
                     .Value.Replace("\n", string.Empty)
                     .Replace("\t", string.Empty), "<.*?>", string.Empty));
                 returnList.Add(new KeyValuePair<string, DiscordWebhookMessage>(RssWebhookEntities.First(x => x.Url == msg.Key).Webhook, setupMsg));
@@ -52,49 +57,36 @@ namespace RSSBot
         private async Task<IList<KeyValuePair<string, XElement>>> GetNewRssFeeds()
         {
             var msgsToSend = new List<KeyValuePair<string, XElement>>();
-            using (var rssClient = new HttpClient())
+            foreach (var entity in RssWebhookEntities)
             {
-                foreach (var entity in RssWebhookEntities)
+                var store = entity.StoredFeeds;
+                var items = await HttpClient.TryGetFeeds(entity.Url);
+                if (store.Count != 0)
                 {
-                    var items = await TryGetFeeds(entity.Url, rssClient);
-                    if (entity.LastFeeds.Count != 0)
+                    foreach (var item in items)
                     {
-                        foreach (var item in items)
+                        var linkValue = item.Element("link").Value;
+                        if (store.Count(x => x.Id == linkValue) == 0)
                         {
-                            var linkValue = item.Element("link").Value;
-                            if (!entity.LastFeeds.Contains(linkValue) &&
-                                !entity.SentFeeds.Contains(linkValue))
-                            {
-                                msgsToSend.Add(new KeyValuePair<string, XElement>(entity.Url, item));
-                                entity.SentFeeds.Add(linkValue);
-                                if (entity.SentFeeds.Count > 10)
-                                    entity.SentFeeds.Remove(entity.SentFeeds.First());
-                            }
+                            msgsToSend.Add(new KeyValuePair<string, XElement>(entity.Url, item));
+                            store.Add(ParseRssFeed(item));
+                            if (store.Count > 150)
+                                store.RemoveAt(0);                                
                         }
                     }
-                    entity.LastFeeds = items.Select(x => x.Element("link").Value).ToList();
                 }
-                rssClient.Dispose();
+                else
+                {
+                    entity.StoredFeeds = items.Select(x => ParseRssFeed(x)).ToList();
+                }
             }
             return msgsToSend;
         }
 
-        private async Task<IList<XElement>> TryGetFeeds(string url, HttpClient httpClient)
-        {
-            var returnValue = new List<XElement>();
-            try
-            {
-                using (var stream = await httpClient.GetStreamAsync(url))
-                {
-                    returnValue = XDocument.Load(stream).Descendants("item").ToList();
-                    stream.Dispose();
-                }
-            }
-            catch (Exception ex)
-            {
-                await Program.WriteToLogFile("GetRssLog.Txt", ex + " " + DateTime.Now.ToString() + " " + url);
-            }
-            return returnValue;
-        }
+        private FeedInfoItem ParseRssFeed(XElement rssFeedElement) =>
+            new FeedInfoItem(
+            rssFeedElement.Element("link").Value,
+            rssFeedElement.Element("title").Value,
+            DateTime.Parse(rssFeedElement.Element("pubDate").Value));
     }
 }

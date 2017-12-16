@@ -3,9 +3,9 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Collections.Generic;
 
-using Newtonsoft.Json.Linq;
+using RSSBot.Configuration;
+using RSSBot.Configuration.ConfigModels;
 
 namespace RSSBot
 {
@@ -16,12 +16,14 @@ namespace RSSBot
 
         public static void Main(string[] args)
         {
-            var rssWebhookEntities = GetRssWebhookEntities();
+            var configParser = new ConfigParser();
+            var config = configParser.GetConfig();
+            var rssWebhookEntities = configParser.GetFeeds();
 
             Client = new Client();
-            RssAnalyzer = new RssFeedAnalyzer(rssWebhookEntities);
+            RssAnalyzer = new RssFeedAnalyzer(rssWebhookEntities, Client);
 
-            Task.Run(() => Run());
+            Task.Run(() => Run(config));
             Console.ReadKey();
         }
 
@@ -33,30 +35,16 @@ namespace RSSBot
             }
         }
 
-        private static async Task Run()
+        private static async Task Run(Config config)
         {
             Console.WriteLine("Application started ...");
             while (true)
             {
                 var messages = await RssAnalyzer.GetRssMessagesToSend();
-                messages.Reverse();
                 if (messages.Count != 0)
-                    await Client.SendMessageToDiscord(messages);
-                Thread.Sleep(120000);
+                    await Client.TrySendMessageToDiscord(messages);
+                Thread.Sleep(TimeSpan.FromMinutes(config.CycleTime));
             }
-        }
-
-        private static IList<RssWebhookEntity> GetRssWebhookEntities()
-        {
-            var returnValue = new List<RssWebhookEntity>();
-            var rawJObject = JObject.Parse(File.ReadAllText("urls.txt"));
-            foreach (var property in rawJObject.Properties())
-                returnValue.Add(new RssWebhookEntity {
-                    Url = property.Name,
-                    Webhook = property.Value["webhook"].ToString(),
-                    WebhookMessageTemplate = property.Value["template"].ToObject<DiscordWebhookMessage>()
-                });
-            return returnValue;
         }
     }
 }
