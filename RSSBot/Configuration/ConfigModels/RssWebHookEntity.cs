@@ -8,6 +8,9 @@ namespace RSSBot.Configuration.ConfigModels
 {
     internal class RssWebhookEntity
     {
+        /// <summary>
+        /// Initializes a new instance of <see cref="RssWebhookEntity"/> & and delcares <see cref="StoredFeeds"/>.
+        /// </summary>
         public RssWebhookEntity()
         {
             StoredFeeds = new List<FeedInfoItem>();

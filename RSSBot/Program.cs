@@ -27,11 +27,11 @@ namespace RSSBot
             Console.ReadKey();
         }
 
-        public static async Task WriteToLogFile(string destinationFile, string msg)
+        public static void WriteToLogFile(string destinationFile, string msg)
         {
             using (var fileStream = new StreamWriter(File.Open(destinationFile, FileMode.Append)))
             {
-                await fileStream.WriteLineAsync(msg + DateTime.Now.ToString());
+                fileStream.WriteLine(msg + DateTime.Now.ToString());
             }
         }
 

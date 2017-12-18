@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -15,11 +16,19 @@ namespace RSSBot.Configuration
 
         private JObject ReadJsonFile(string path)
         {
-            JObject returnValue = null;
-            using (var file = File.OpenText(path))
-            using (var jsonReader = new JsonTextReader(file))
-                returnValue = (JObject)JToken.ReadFrom(jsonReader);
-            return returnValue;
+            try
+            {
+                JObject returnValue = null;
+                using (var file = File.OpenText(path))
+                using (var jsonReader = new JsonTextReader(file))
+                    returnValue = (JObject)JToken.ReadFrom(jsonReader);
+                return returnValue;
+            }
+            catch (Exception ex)
+            {
+                Program.WriteToLogFile("Logging/Start.txt", ex.Message + DateTime.Now);
+                throw;
+            }
         }
     }
 }

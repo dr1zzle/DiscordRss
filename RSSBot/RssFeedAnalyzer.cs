@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Linq;
 using System.Xml.Linq;
 using System.Threading.Tasks;
@@ -8,7 +9,6 @@ using System.Text.RegularExpressions;
 using RSSBot.Configuration.ConfigModels;
 
 using RSSBot.DataModel;
-using System;
 
 namespace RSSBot
 {
