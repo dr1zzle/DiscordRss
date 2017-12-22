@@ -1,7 +1,0 @@
-System.InvalidOperationException: An invalid request URI was provided. The request URI must either be an absolute URI or BaseAddress must be set.
-   at System.Net.Http.HttpClient.PrepareRequestMessage(HttpRequestMessage request)
-   at System.Net.Http.HttpClient.SendAsync(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationToken cancellationToken)
-   at System.Net.Http.HttpClient.GetAsync(Uri requestUri, HttpCompletionOption completionOption, CancellationToken cancellationToken)
-   at System.Net.Http.HttpClient.GetStreamAsync(Uri requestUri)
-   at System.Net.Http.HttpClient.GetStreamAsync(String requestUri)
-   at RSSBot.Client.<TryGetFeeds>d__1.MoveNext() in D:\VS_Projects\RSSBot\RSSBot\Client.cs:line 44 22.12.2017 23:49:47 22.12.2017 23:49:47
