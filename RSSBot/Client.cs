@@ -20,7 +20,7 @@ namespace RSSBot
                     foreach (var msg in messages)
                     {
                         var responseMessage = await client.PostAsync(msg.Key, new StringContent(msg.Value.ToString(), Encoding.UTF8, "application/json"));
-                        Program.WriteToLogFile("SendMsgLog.Txt", "Message Send. Everything OK!");
+                        Program.WriteToLogFile("Logging/SendMsgLog.Txt", "Message Send. Everything OK!");
                         Thread.Sleep(2000);
                     }
                     client.Dispose();
@@ -28,7 +28,7 @@ namespace RSSBot
             }
             catch (Exception ex)
             {
-                Program.WriteToLogFile("./Logging/SendMsgLog.Txt", ex.ToString());
+                Program.WriteToLogFile("Logging/SendMsgLog.Txt", ex.ToString());
             }
         }
 
@@ -49,7 +49,7 @@ namespace RSSBot
             }
             catch (Exception ex)
             {
-                Program.WriteToLogFile("./Logging/GetRssLog.Txt", ex + " " + DateTime.Now.ToString() + " " + url);
+                Program.WriteToLogFile("Logging/GetRssLog.Txt", ex + " " + DateTime.Now.ToString() + " " + url);
             }
             returnValue.Reverse();
             return returnValue;
