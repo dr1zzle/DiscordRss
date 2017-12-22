@@ -10,9 +10,9 @@ namespace RSSBot.Configuration
 {
     internal class ConfigParser
     {
-        public Feeds GetFeeds() => ReadJsonFile("Configuration/feeds.json").ToObject<Feeds>();
+        public Feeds GetFeeds() => ReadJsonFile(ConfigLocations.Feeds).ToObject<Feeds>();
 
-        public Config GetConfig() => ReadJsonFile("Configuration/config.json").ToObject<Config>();
+        public Config GetConfig() => ReadJsonFile(ConfigLocations.Config).ToObject<Config>();
 
         private JObject ReadJsonFile(string path)
         {
