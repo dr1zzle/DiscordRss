@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace RSSBot
+namespace RSSBot.DiscordWebhookModels
 {
     internal class DiscordWebhookObject
     {

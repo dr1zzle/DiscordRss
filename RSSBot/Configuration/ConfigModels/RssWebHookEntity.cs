@@ -3,6 +3,7 @@
 using Newtonsoft.Json;
 
 using RSSBot.DataModel;
+using RSSBot.DiscordWebhookModels;
 
 namespace RSSBot.Configuration.ConfigModels
 {

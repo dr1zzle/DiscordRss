@@ -7,11 +7,13 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 
+using RSSBot.DataModel;
+
 namespace RSSBot
 {
     internal class Client
     {
-        public async Task TrySendMessageToDiscord(IList<KeyValuePair<string, DiscordWebhookMessage>> messages)
+        public async Task TrySendMessageToDiscord(IList<ParsedItem> messages)
         {
             try
             {
@@ -19,8 +21,8 @@ namespace RSSBot
                 {
                     foreach (var msg in messages)
                     {
-                        var responseMessage = await client.PostAsync(msg.Key, new StringContent(msg.Value.ToString(), Encoding.UTF8, "application/json"));
-                        Program.WriteToLogFile("Logging/SendMsgLog.Txt", "Message Send. Everything OK!");
+                        var responseMessage = await client.PostAsync(msg.Url, new StringContent(msg.ParsedMessage.ToString(), Encoding.UTF8, "application/json"));
+                        Program.WriteToLogFile(LoggingLocations.SendMessage, "Message Send. Everything OK!");
                         Thread.Sleep(2000);
                     }
                     client.Dispose();
@@ -28,7 +30,7 @@ namespace RSSBot
             }
             catch (Exception ex)
             {
-                Program.WriteToLogFile("Logging/SendMsgLog.Txt", ex.ToString());
+                Program.WriteToLogFile(LoggingLocations.SendMessage, ex.ToString());
             }
         }
 
@@ -49,7 +51,7 @@ namespace RSSBot
             }
             catch (Exception ex)
             {
-                Program.WriteToLogFile("Logging/GetRssLog.Txt", ex + " " + DateTime.Now.ToString() + " " + url);
+                Program.WriteToLogFile(LoggingLocations.GetFeed, ex + " " + DateTime.Now.ToString() + " " + url);
             }
             returnValue.Reverse();
             return returnValue;
