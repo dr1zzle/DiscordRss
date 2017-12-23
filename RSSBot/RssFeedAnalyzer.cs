@@ -75,9 +75,9 @@ namespace RSSBot
                 if (store.Count == 0)
                 {
                     entity.StoredFeeds = items.Select(x => ParseRssFeed(x)).ToList();
-                    return msgsToSend;
+                    continue;
                 }
-                foreach (var item in items )
+                foreach (var item in items)
                 {
                     if (store.Count(x => x.Id == item.Element("link").Value) == 0)
                     {
