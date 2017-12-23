@@ -59,7 +59,7 @@ namespace RSSBot
                 var description = WebUtility.HtmlDecode(Regex.Replace(raw.Element("description")
                     .Value.Replace("\n", string.Empty)
                     .Replace("\t", string.Empty), "<.*?>", string.Empty));
-                embed.Description = description.Length > 170 ? description.Substring(0, 300) + "[...]" : description;
+                embed.Description = description.Length > 300 ? description.Substring(0, 300) + "[...]" : description;
                 returnList.Add(new ParsedItem(entity.Webhook, setupMsg));
             }
             return returnList;

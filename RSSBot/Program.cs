@@ -37,13 +37,20 @@ namespace RSSBot
 
         private static async Task Run(Config config)
         {
-            Console.WriteLine("Application started ...");
-            while (true)
+            try
             {
-                var messages = await RssAnalyzer.GetRssMessagesToSend();
-                if (messages.Count != 0)
-                    await Client.TrySendMessageToDiscord(messages);
-                Thread.Sleep(TimeSpan.FromMinutes(config.CycleTime));
+                Console.WriteLine("Application started ...");
+                while (true)
+                {
+                    var messages = await RssAnalyzer.GetRssMessagesToSend();
+                    if (messages.Count != 0)
+                        await Client.TrySendMessageToDiscord(messages);
+                    Thread.Sleep(TimeSpan.FromMinutes(config.CycleTime));
+                }
+            } 
+            catch (Exception ex)
+            {
+                WriteToLogFile(LoggingLocations.ThreadRun, ex.Message + DateTime.Now);
             }
         }
     }

@@ -2,8 +2,11 @@
 {
     internal static class LoggingLocations
     {
-        internal const string Start = "Logging/Start.txt";
-        internal const string SendMessage = "Logging/SendMsgLog.Txt";
-        internal const string GetFeed = "Logging/GetRssLog.Txt";
+        private const string Folder = "Logging/";
+
+        internal const string Start = Folder + "Start.txt";
+        internal const string ThreadRun = Folder + "ThreadRun.txt";
+        internal const string SendMessage = Folder + "SendMsgLog.Txt";
+        internal const string GetFeed = Folder + "GetRssLog.Txt";
     }
 }
