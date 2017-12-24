@@ -26,7 +26,7 @@ namespace RSSBot.Configuration
             }
             catch (Exception ex)
             {
-                Program.WriteToLogFile(LoggingLocations.Start, ex.Message + DateTime.Now);
+                Program.WriteToLogFile(LoggingLocations.Start, $"{ex.Message} {DateTime.Now}");
                 throw;
             }
         }

@@ -1,7 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 
 using RSSBot.Configuration;
@@ -45,12 +43,12 @@ namespace RSSBot
                     var messages = await RssAnalyzer.GetRssMessagesToSend();
                     if (messages.Count != 0)
                         await Client.TrySendMessageToDiscord(messages);
-                    Thread.Sleep(TimeSpan.FromMinutes(config.CycleTime));
+                    await Task.Delay(TimeSpan.FromMinutes(config.CycleTime));
                 }
             } 
             catch (Exception ex)
             {
-                WriteToLogFile(LoggingLocations.ThreadRun, ex.Message + DateTime.Now);
+                WriteToLogFile(LoggingLocations.ThreadRun, $"{ex.Message} {DateTime.Now}");
             }
         }
     }
