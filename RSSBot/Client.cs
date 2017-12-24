@@ -23,7 +23,7 @@ namespace RSSBot
                     {
                         var resp = await client.PostAsync($"{msg.Url}?wait=true", new StringContent(msg.ParsedMessage.ToString(), Encoding.UTF8, "application/json"));
                         if (resp.StatusCode != HttpStatusCode.OK)
-                            throw new Exception($"{resp.RequestMessage}{Environment.NewLine}{resp.StatusCode}");
+                            throw new Exception($"{await resp.Content.ReadAsStringAsync()}{Environment.NewLine}{resp.StatusCode}");
                         Program.WriteToLogFile(LoggingLocations.SendMessage, "Message Send. Everything OK!");
                         await Task.Delay(TimeSpan.FromSeconds(2));
                     }
