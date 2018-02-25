@@ -8,11 +8,19 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 
 using RSSBot.DataModel;
+using RSSBot.Logging;
 
 namespace RSSBot
 {
-    internal class Client
+    public class Client
     {
+        private readonly ILogger _logger;
+
+        public Client(ILogger logger)
+        {
+            _logger = logger;
+        }
+
         public async Task TrySendMessageToDiscord(IList<ParsedItem> messages)
         {
             try
@@ -23,16 +31,18 @@ namespace RSSBot
                     {
                         var resp = await client.PostAsync($"{msg.Url}?wait=true", new StringContent(msg.ParsedMessage.ToString(), Encoding.UTF8, "application/json"));
                         if (resp.StatusCode != HttpStatusCode.OK)
+                        {
                             throw new Exception($"{await resp.Content.ReadAsStringAsync()}{Environment.NewLine}{resp.StatusCode}");
-                        Program.WriteToLogFile(LoggingLocations.SendMessage, "Message Send. Everything OK!");
-                        await Task.Delay(TimeSpan.FromSeconds(2));
+                        }
+
+                        _logger.LogInfo("Message Send. Everything OK!");
+                        await Task.Delay(TimeSpan.FromSeconds(1));
                     }
-                    client.Dispose();
                 }
             }
             catch (Exception ex)
             {
-                Program.WriteToLogFile(LoggingLocations.SendMessage, ex.Message);
+                _logger.LogError(ex.Message);
             }
         }
 
@@ -46,15 +56,14 @@ namespace RSSBot
                     using (var stream = await client.GetStreamAsync(url))
                     {
                         returnValue = XDocument.Load(stream).Descendants("item").ToList();
-                        stream.Dispose();
                     }
-                    client.Dispose();
                 }
             }
             catch (Exception ex)
             {
-                Program.WriteToLogFile(LoggingLocations.GetFeed, $"{ex.Message} {DateTime.Now} {url}");
+                _logger.LogError($"{ex.Message} {url}");
             }
+
             returnValue.Reverse();
             return returnValue;
         }

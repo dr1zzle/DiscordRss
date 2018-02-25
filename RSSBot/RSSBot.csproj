@@ -12,8 +12,7 @@
   <ItemGroup>
     <None Remove="Configuration\config.json" />
     <None Remove="Configuration\feeds.json" />
-    <None Remove="Logging\GetRssLog.Txt" />
-    <None Remove="Logging\SendMsgLog.Txt" />
+    <None Remove="LogFiles\Log.Txt" />
   </ItemGroup>
 
   <ItemGroup>
@@ -23,10 +22,7 @@
     <Content Include="Configuration\feeds.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Logging\GetRssLog.Txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Logging\SendMsgLog.Txt">
+    <Content Include="LogFiles\Log.Txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
