@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace RSSBot.DiscordWebhookModels
 {
-    internal class DiscordWebhookMessage : DiscordWebhookObject
+    public class DiscordWebhookMessage : DiscordWebhookObject
     {
         [JsonProperty("content")]
         public string Content { get; set; }

@@ -5,14 +5,26 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 using RSSBot.Configuration.ConfigModels;
+using RSSBot.Logging;
 
 namespace RSSBot.Configuration
 {
-    internal class ConfigParser
+    public class ConfigParser
     {
-        public Feeds GetFeeds() => ReadJsonFile(ConfigLocations.Feeds).ToObject<Feeds>();
+        private readonly ILogger _logger;
+        private readonly string _feedsLocation;
+        private readonly string _configLocation;
 
-        public Config GetConfig() => ReadJsonFile(ConfigLocations.Config).ToObject<Config>();
+        public ConfigParser(ILogger logger, string feedsLocation, string configLocation)
+        {
+            _logger = logger;
+            _feedsLocation = feedsLocation;
+            _configLocation = configLocation;
+        }
+
+        public Feeds GetFeeds() => ReadJsonFile(_feedsLocation).ToObject<Feeds>();
+
+        public Config GetConfig() => ReadJsonFile(_configLocation).ToObject<Config>();
 
         private JObject ReadJsonFile(string path)
         {
@@ -20,13 +32,18 @@ namespace RSSBot.Configuration
             {
                 JObject returnValue = null;
                 using (var file = File.OpenText(path))
-                using (var jsonReader = new JsonTextReader(file))
-                    returnValue = (JObject)JToken.ReadFrom(jsonReader);
+                {
+                    using (var jsonReader = new JsonTextReader(file))
+                    {
+                        returnValue = (JObject)JToken.ReadFrom(jsonReader);
+                    }
+                }
+
                 return returnValue;
             }
             catch (Exception ex)
             {
-                Program.WriteToLogFile(LoggingLocations.Start, $"{ex.Message} {DateTime.Now}");
+                _logger.LogError(ex.Message);
                 throw;
             }
         }

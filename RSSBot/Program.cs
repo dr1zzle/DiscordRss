@@ -1,36 +1,30 @@
 ﻿using System;
-using System.IO;
 using System.Threading.Tasks;
 
 using RSSBot.Configuration;
 using RSSBot.Configuration.ConfigModels;
+using RSSBot.Logging;
 
 namespace RSSBot
 {
     public class Program
     {
+        private static readonly ILogger _logger = new Logger(FileLocations.Log);
+
         private static Client Client;
         private static RssFeedAnalyzer RssAnalyzer;
 
         public static void Main(string[] args)
         {
-            var configParser = new ConfigParser();
+            var configParser = new ConfigParser(_logger, FileLocations.Feeds, FileLocations.Config);
             var config = configParser.GetConfig();
             var rssWebhookEntities = configParser.GetFeeds();
 
-            Client = new Client();
+            Client = new Client(_logger);
             RssAnalyzer = new RssFeedAnalyzer(rssWebhookEntities, Client);
 
-            Task.Run(() => Run(config));
+            Task.Run(async () => await Run(config));
             Console.ReadKey();
-        }
-
-        public static void WriteToLogFile(string destinationFile, string msg)
-        {
-            using (var fileStream = new StreamWriter(File.Open(destinationFile, FileMode.Append)))
-            {
-                fileStream.WriteLine(msg + DateTime.Now.ToString());
-            }
         }
 
         private static async Task Run(Config config)
@@ -42,13 +36,16 @@ namespace RSSBot
                 {
                     var messages = await RssAnalyzer.GetRssMessagesToSend();
                     if (messages.Count != 0)
+                    {
                         await Client.TrySendMessageToDiscord(messages);
+                    }
+
                     await Task.Delay(TimeSpan.FromMinutes(config.CycleTime));
                 }
             } 
             catch (Exception ex)
             {
-                WriteToLogFile(LoggingLocations.ThreadRun, $"{ex.Message} {DateTime.Now}");
+                _logger.LogError($"STARTUP {ex.Message}");
             }
         }
     }

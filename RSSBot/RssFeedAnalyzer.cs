@@ -13,11 +13,12 @@ using RSSBot.DiscordWebhookModels;
 
 namespace RSSBot
 {
-    internal class RssFeedAnalyzer
+    public class RssFeedAnalyzer
     {
-        private Client HttpClient;
-        private XNamespace XNamespace;
-        private IList<RssWebhookEntity> RssWebhookEntities;
+        private static readonly XNamespace XNamespace = "http://search.yahoo.com/mrss/";
+
+        private readonly Client HttpClient;
+        private readonly IList<RssWebhookEntity> RssWebhookEntities;
 
         /// <summary>
         /// Initializes a new instance of <see cref="RssFeedAnalyzer"/>.
@@ -28,7 +29,6 @@ namespace RSSBot
         {
             HttpClient = httpClient;
             RssWebhookEntities = feeds.FeedList;
-            XNamespace = "http://search.yahoo.com/mrss/";
         }
 
         public async Task<IList<ParsedItem>> GetRssMessagesToSend()
@@ -56,12 +56,14 @@ namespace RSSBot
                             Url = thumbnail.Attribute("url").Value
                         };
                 }
+
                 var description = WebUtility.HtmlDecode(Regex.Replace(raw.Element("description")
                     .Value.Replace("\n", string.Empty)
                     .Replace("\t", string.Empty), "<.*?>", string.Empty));
                 embed.Description = description.Length > 300 ? description.Substring(0, 300) + "[...]" : description;
                 returnList.Add(new ParsedItem(entity.Webhook, setupMsg));
             }
+
             return returnList;
         }
 
@@ -77,6 +79,7 @@ namespace RSSBot
                     entity.StoredFeeds = items.Select(x => ParseRssFeed(x)).ToList();
                     continue;
                 }
+
                 foreach (var item in items)
                 {
                     if (store.Count(x => x.Id == item.Element("link").Value) == 0)
@@ -88,13 +91,17 @@ namespace RSSBot
                     }
                 }
             }
+
             return msgsToSend;
         }
 
-        private FeedInfoItem ParseRssFeed(XElement rssFeedElement) =>
-            new FeedInfoItem(
-            rssFeedElement.Element("link").Value,
-            rssFeedElement.Element("title").Value,
-            DateTime.Parse(rssFeedElement.Element("pubDate").Value));
+        private FeedInfoItem ParseRssFeed(XElement rssFeedElement)
+        {
+            return new FeedInfoItem(
+                rssFeedElement.Element("link").Value,
+                rssFeedElement.Element("title").Value,
+                DateTime.Parse(rssFeedElement.Element("pubDate").Value)
+                );
+        }
     }
 }

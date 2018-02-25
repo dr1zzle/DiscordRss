@@ -7,16 +7,8 @@ using RSSBot.DiscordWebhookModels;
 
 namespace RSSBot.Configuration.ConfigModels
 {
-    internal class RssWebhookEntity
+    public class RssWebhookEntity
     {
-        /// <summary>
-        /// Initializes a new instance of <see cref="RssWebhookEntity"/> & and delcares <see cref="StoredFeeds"/>.
-        /// </summary>
-        public RssWebhookEntity()
-        {
-            StoredFeeds = new List<FeedInfoItem>();
-        }
-
         [JsonProperty("url")]
         public string Url { get; set; }
         [JsonProperty("webhook")]
@@ -26,5 +18,10 @@ namespace RSSBot.Configuration.ConfigModels
 
         [JsonIgnore]
         public IList<FeedInfoItem> StoredFeeds { get; set; }
+
+        public RssWebhookEntity()
+        {
+            StoredFeeds = new List<FeedInfoItem>();
+        }
     }
 }

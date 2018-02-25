@@ -2,7 +2,7 @@
 
 namespace RSSBot.Configuration.ConfigModels
 {
-    internal class Config
+    public class Config
     {
         [JsonProperty("cycleTime")]
         public int CycleTime { get; set; }

@@ -1,8 +1,10 @@
 ﻿namespace RSSBot
 {
-    internal static class ConfigLocations
+    public static class FileLocations
     {
-        internal const string Feeds = "Configuration/feeds.json";
-        internal const string Config = "Configuration/config.json";
+        public const string Feeds = "Configuration/feeds.json";
+        public const string Config = "Configuration/config.json";
+
+        public const string Log = "Logging/Log.txt";
     }
 }

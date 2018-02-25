@@ -2,7 +2,7 @@
 
 namespace RSSBot.DiscordWebhookModels
 {
-    internal class DiscordMessageEmbed : DiscordWebhookObject
+    public class DiscordMessageEmbed : DiscordWebhookObject
     {
         [JsonProperty("title")]
         public string Title { get; set; }
