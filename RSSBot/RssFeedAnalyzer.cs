@@ -76,7 +76,16 @@ namespace RSSBot
                 var items = await HttpClient.TryGetFeeds(entity.Url);
                 if (store.Count == 0)
                 {
-                    entity.StoredFeeds = items.Select(x => ParseRssFeed(x)).ToList();
+                    foreach (var item in items)
+                    {
+                        if (ParseRssFeed(item, out var feedInfoItem) == false)
+                        {
+                            continue;
+                        }
+
+                        entity.StoredFeeds.Add(feedInfoItem);
+                    }
+
                     continue;
                 }
 
@@ -85,7 +94,12 @@ namespace RSSBot
                     if (store.Count(x => x.Id == item.Element("link").Value) == 0)
                     {
                         msgsToSend.Add(new RawItem(item, entity));
-                        store.Add(ParseRssFeed(item));
+                        if (ParseRssFeed(item, out var feedInfoItem) == false)
+                        {
+                            continue;
+                        }
+
+                        store.Add(feedInfoItem);
                         if (store.Count > 150)
                             store.RemoveAt(0);
                     }
@@ -95,13 +109,21 @@ namespace RSSBot
             return msgsToSend;
         }
 
-        private FeedInfoItem ParseRssFeed(XElement rssFeedElement)
+        private bool ParseRssFeed(XElement rssFeedElement, out FeedInfoItem feedInfoItem)
         {
-            return new FeedInfoItem(
+            feedInfoItem = null;
+            if (DateTime.TryParse(rssFeedElement.Element("pubDate").Value, out var date) == false)
+            {
+                return false;
+            }
+
+            feedInfoItem = new FeedInfoItem(
                 rssFeedElement.Element("link").Value,
                 rssFeedElement.Element("title").Value,
                 DateTime.Parse(rssFeedElement.Element("pubDate").Value)
                 );
+
+            return true;
         }
     }
 }
