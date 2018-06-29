@@ -74,17 +74,30 @@ namespace RSSBot
             {
                 var store = entity.StoredFeeds;
                 var items = await HttpClient.TryGetFeeds(entity.Url);
-                foreach (var item in items)
+
+                if (store.Count == 0)
                 {
-                    if (store.Count != 0)
+                    foreach (var item in items)
                     {
-                        if (store.Any(x => x.Id == item.Element("link").Value))
+                        if (ParseRssFeed(item, out var feedInfoItem) == false)
                         {
                             continue;
                         }
 
-                        msgsToSend.Add(new RawItem(item, entity));
+                        entity.StoredFeeds.Add(feedInfoItem);
                     }
+
+                    continue;
+                }
+
+                foreach (var item in items)
+                {
+                    if (store.Any(x => x.Id == item.Element("link").Value))
+                    {
+                        continue;
+                    }
+
+                    msgsToSend.Add(new RawItem(item, entity));
 
                     if (ParseRssFeed(item, out var feedInfoItem) == false)
                     {
