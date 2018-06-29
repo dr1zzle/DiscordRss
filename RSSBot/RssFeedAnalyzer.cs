@@ -92,17 +92,13 @@ namespace RSSBot
 
                 foreach (var item in items)
                 {
-                    if (store.Any(x => x.Id == item.Element("link").Value))
+                    if (store.Any(x => x.Id == item.Element("link").Value)
+                        || ParseRssFeed(item, out var feedInfoItem) == false)
                     {
                         continue;
                     }
 
                     msgsToSend.Add(new RawItem(item, entity));
-
-                    if (ParseRssFeed(item, out var feedInfoItem) == false)
-                    {
-                        continue;
-                    }
 
                     store.Add(feedInfoItem);
                     if (store.Count > 150)
