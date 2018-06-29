@@ -74,34 +74,27 @@ namespace RSSBot
             {
                 var store = entity.StoredFeeds;
                 var items = await HttpClient.TryGetFeeds(entity.Url);
-                if (store.Count == 0)
-                {
-                    foreach (var item in items)
-                    {
-                        if (ParseRssFeed(item, out var feedInfoItem) == false)
-                        {
-                            continue;
-                        }
-
-                        entity.StoredFeeds.Add(feedInfoItem);
-                    }
-
-                    continue;
-                }
-
                 foreach (var item in items)
                 {
-                    if (store.Count(x => x.Id == item.Element("link").Value) == 0)
+                    if (store.Count != 0)
                     {
-                        msgsToSend.Add(new RawItem(item, entity));
-                        if (ParseRssFeed(item, out var feedInfoItem) == false)
+                        if (store.Any(x => x.Id == item.Element("link").Value))
                         {
                             continue;
                         }
 
-                        store.Add(feedInfoItem);
-                        if (store.Count > 150)
-                            store.RemoveAt(0);
+                        msgsToSend.Add(new RawItem(item, entity));
+                    }
+
+                    if (ParseRssFeed(item, out var feedInfoItem) == false)
+                    {
+                        continue;
+                    }
+
+                    store.Add(feedInfoItem);
+                    if (store.Count > 150)
+                    {
+                        store.RemoveAt(0);
                     }
                 }
             }
@@ -120,8 +113,7 @@ namespace RSSBot
             feedInfoItem = new FeedInfoItem(
                 rssFeedElement.Element("link").Value,
                 rssFeedElement.Element("title").Value,
-                DateTime.Parse(rssFeedElement.Element("pubDate").Value)
-                );
+                date);
 
             return true;
         }
